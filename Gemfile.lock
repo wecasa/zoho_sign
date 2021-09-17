@@ -2,12 +2,19 @@ PATH
   remote: .
   specs:
     zoho_sign (0.1.0)
+      dry-configurable (~> 0.1)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    concurrent-ruby (1.1.9)
     diff-lcs (1.4.4)
+    dry-configurable (0.13.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.6)
+    dry-core (0.7.1)
+      concurrent-ruby (~> 1.0)
     parallel (1.21.0)
     parser (3.0.2.0)
       ast (~> 2.4.1)
