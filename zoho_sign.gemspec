@@ -33,6 +33,11 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "dry-configurable", "~> 0.1"
+  spec.add_dependency "rainbow"
+  spec.add_dependency "faraday"
+  spec.add_dependency "faraday_middleware"
+  spec.add_dependency "multi_json"
+  spec.add_dependency "addressable"
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html

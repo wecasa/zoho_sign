@@ -2,11 +2,18 @@ PATH
   remote: .
   specs:
     zoho_sign (0.1.0)
+      addressable
       dry-configurable (~> 0.1)
+      faraday
+      faraday_middleware
+      multi_json
+      rainbow
 
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
     coderay (1.1.3)
     concurrent-ruby (1.1.9)
@@ -17,13 +24,37 @@ GEM
       dry-core (~> 0.6)
     dry-core (0.7.1)
       concurrent-ruby (~> 1.0)
+    faraday (1.8.0)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
+    faraday_middleware (1.1.0)
+      faraday (~> 1.0)
     method_source (1.0.0)
+    multi_json (1.15.0)
+    multipart-post (2.1.1)
     parallel (1.21.0)
     parser (3.0.2.0)
       ast (~> 2.4.1)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    public_suffix (4.0.6)
     rainbow (3.0.0)
     rake (13.0.6)
     regexp_parser (2.1.1)
@@ -53,6 +84,7 @@ GEM
     rubocop-ast (1.11.0)
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
+    ruby2_keywords (0.0.5)
     unicode-display_width (2.1.0)
 
 PLATFORMS

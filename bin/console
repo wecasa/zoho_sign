@@ -7,7 +7,18 @@ require "dotenv/load"
 
 require "zoho_sign"
 
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
+ZohoSign.config.debug = true
+
+ZohoSign.config.update(
+  oauth: {
+    client_id: ENV["ZOHO_SIGN_CLIENT_ID"],
+    client_secret: ENV["ZOHO_SIGN_CLIENT_SECRET"],
+    access_token: ENV["ZOHO_SIGN_ACCESS_TOKEN"],
+    refresh_token: ENV["ZOHO_SIGN_REFRESH_TOKEN"]
+  }
+)
+
+access_token_params = ZohoSign::Auth.refresh_token(ENV["ZOHO_SIGN_REFRESH_TOKEN"])
+ZohoSign.config.connection = access_token_params
 
 Pry.start
