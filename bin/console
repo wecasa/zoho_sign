@@ -3,6 +3,7 @@
 
 require "bundler/setup"
 require "pry"
+require "dotenv/load"
 
 require "zoho_sign"
 
