@@ -4,7 +4,7 @@ require "rainbow"
 require "faraday"
 require "faraday_middleware"
 
-require "zoho_sign/response_handler"
+require_relative "response_handler"
 
 module ZohoSign
   class Connection
@@ -92,6 +92,7 @@ module ZohoSign
     def adapter
       Faraday.new(url: base_url) do |conn|
         conn.headers["Authorization"] = authorization_token if access_token?
+        conn.headers["content-type"] = "application/x-www-form-urlencoded"
         conn.request :json
         conn.response :json, parser_options: { symbolize_names: true }
         conn.response :logger if ZohoSign.config.debug

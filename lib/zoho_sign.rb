@@ -8,6 +8,7 @@ require_relative "zoho_sign/connection"
 
 # Record classes
 require_relative "zoho_sign/template"
+require_relative "zoho_sign/document"
 
 # Namespace ZohoSign
 module ZohoSign

@@ -37,19 +37,39 @@ module ZohoSign
       !!@params.dig(:page_context, :has_more_rows)
     end
 
-    # Body: { code: 9041, message: "Invalid Oauth token", status: "failure" }
-    def invalid_token_error?
-      code?(9041)
-    end
-
-    # Body: { code: 9004, message: "No match found", status: "failure" }
+    # @params = { code: 9004, status: "failure", message: "No match found" }
     def not_found_error?
       code?(9004)
     end
 
-    # Body: { code: 9015, error_param: "data[page_context][row_count]", message: "Extra key found", status: "failure" }
+    # @params = { code: 9008, status: "failure", message: "templates occurs less than minimum occurance of 1", error_param: "templates" }
+    def missing_param_error?
+      code?(9008)
+    end
+
+    # @params = { code: 9015, status: "failure", message: "Extra key found", status: "failure", error_param: "data[page_context][row_count]" }
     def extra_key_found_error?
       code?(9015)
+    end
+
+    # @params = { code: 9031, status: "failure", message: "Ticket invalid" }
+    def ticket_invalid_error?
+      code?(9031)
+    end
+
+    # @params = { code: 9039, status: "failure", message: "Unable to process your request" }
+    def extra_key_found_error?
+      code?(9039)
+    end
+
+    # @params = { code: 9041, status: "failure", message: "Invalid Oauth token" }
+    def invalid_token_error?
+      code?(9041)
+    end
+
+    # @params = { code: 12001, status: "failure", message: "Upgrade API credits to access resources using API" }
+    def no_more_credits_error?
+      code?(12001)
     end
 
     private

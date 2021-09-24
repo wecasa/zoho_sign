@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
+require "active_support/core_ext/object/to_query"
 
 module ZohoSign
   class BaseRecord
@@ -13,6 +14,12 @@ module ZohoSign
     attr_accessor :attributes
 
     class << self
+      # @param [Integer] :start_index (1) Start Index.
+      # @param [Integer] :per_request (100) No of rows to be retrieved. Possible values: 10, 25, 50 or 100.
+      # @param [String] :sort_column (nil)
+      # @param [String] :sort_order (nil)
+      #
+      # @return [Array] Array of instances of current class
       def all(start_index: DEFAULT_START_INDEX, per_request: DEFAULT_RECORDS_PER_REQUEST, sort_column: nil, sort_order: nil)
         params = build_params_for_index_action(start_index, per_request, sort_column, sort_order)
         body = connection.get(request_path, params)
@@ -31,6 +38,9 @@ module ZohoSign
         data.map { |record_attributes| new(**record_attributes) }
       end
 
+      # @param [String] zoho_id
+      #
+      # @return [Class] Instance of current class
       def find(zoho_id)
         body = connection.get("#{request_path}/#{zoho_id}")
         response = build_response(body)
@@ -74,6 +84,10 @@ module ZohoSign
           }.compact.to_json
         }.compact
       end
+    end
+
+    def initialize(**attributes)
+      @attributes = attributes
     end
   end
 end
