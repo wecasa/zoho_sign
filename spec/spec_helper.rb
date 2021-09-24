@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require "pry"
 require "webmock/rspec"
+require "faker"
 
 require "zoho_sign"
 

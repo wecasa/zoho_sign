@@ -33,6 +33,8 @@ GEM
       dry-core (~> 0.6)
     dry-core (0.7.1)
       concurrent-ruby (~> 1.0)
+    faker (2.19.0)
+      i18n (>= 1.6, < 2)
     faraday (1.8.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -112,6 +114,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  faker
   pry
   rake (~> 13.0)
   rspec (~> 3.0)

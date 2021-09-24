@@ -18,3 +18,4 @@ gem "pry"
 # Testing
 gem "rspec", "~> 3.0"
 gem "webmock"
+gem "faker"
