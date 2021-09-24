@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     zoho_sign (0.1.0)
+      activesupport
       addressable
       dry-configurable (~> 0.1)
       faraday
@@ -12,6 +13,12 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (6.1.4.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+      zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
@@ -45,7 +52,10 @@ GEM
     faraday-rack (1.0.0)
     faraday_middleware (1.1.0)
       faraday (~> 1.0)
+    i18n (1.8.10)
+      concurrent-ruby (~> 1.0)
     method_source (1.0.0)
+    minitest (5.14.4)
     multi_json (1.15.0)
     multipart-post (2.1.1)
     parallel (1.21.0)
@@ -85,7 +95,10 @@ GEM
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
+    tzinfo (2.0.4)
+      concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
+    zeitwerk (2.4.2)
 
 PLATFORMS
   x86_64-linux
