@@ -33,7 +33,8 @@ module ZohoSign
   end
 
   setting :connection, reader: true, constructor: -> (params) {
-    raise Error, "ERROR: #{params[:error]}" if params[:error]
+    return unless params
+    raise Error, "ERROR: #{params[:error]}" if params && params[:error]
 
     connection_params = params.dup.slice(:access_token, :expires_in, :refresh_token)
     Connection.new(**connection_params)

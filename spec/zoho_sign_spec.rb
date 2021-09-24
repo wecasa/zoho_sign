@@ -27,6 +27,7 @@ RSpec.describe ZohoSign do
               access_token: "2000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
               refresh_token: "3000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             },
+            connection: nil,
             api: {
               domain: "https://sign.zoho.com",
               base_path: "/api/v1"
