@@ -22,7 +22,88 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Initialization
+
+Create the following file (or equivalent for your app) and fill it with your credentails.
+
+If you don't have them, follow this official guide: https://www.zoho.com/sign/api/#getting-started
+
+**`config/initializers/zoho_sign.rb`**
+```ruby
+require "zoho_sign"
+
+ZohoSign.config.debug = true # Default is false. You can enable it to see the requests made by the Gem.
+
+ZohoSign.config.update(
+  oauth: {
+    client_id: ENV["ZOHO_SIGN_CLIENT_ID"],
+    client_secret: ENV["ZOHO_SIGN_CLIENT_SECRET"],
+    access_token: ENV["ZOHO_SIGN_ACCESS_TOKEN"],
+    refresh_token: ENV["ZOHO_SIGN_REFRESH_TOKEN"]
+  }
+)
+
+params = ZohoSign::Auth.refresh_token(ENV["ZOHO_SIGN_REFRESH_TOKEN"])
+ZohoSign.config.connection = params
+```
+
+### How to use `ZohoSign::Template`
+
+Find all templetes:
+
+```ruby
+templates = ZohoSign::Template.all
+```
+
+Find template by ID:
+
+```ruby
+template = ZohoSign::Template.find("12345678900000000")
+```
+
+Create document from template:
+
+```ruby
+template = ZohoSign::Template.find("12345678900000000")
+
+field_data = {
+  field_text_data: {
+    full_name: "Homer Simpson",
+    address: "742 Evergreen Terrace, Springfield, US"
+  }
+}
+
+recipient_data = [
+  {
+    role: "OldOwner",
+    action_id: "11111111111111111",
+    recipient: {
+      name: "Moammar Morris 'Moe' Szyslak",
+      email: "moe@springfield.com",
+      verify: true
+    },
+    private_notes: "Please sign this agreement"
+  },
+  {
+    role: "NewOwner",
+    action_id: "22222222222222222",
+    recipient: {
+      name: "Homer Simpson",
+      email: "homer.simpson@springfield.com",
+      verify: true
+    },
+    private_notes: "Please sign this agreement"
+  }
+]
+
+document = ZohoSign::Template.create_document(
+  template_id: "12345678900000000",
+  field_data: field_data,
+  recipient_data: recipient_data,
+  document_name: "Agreement (v3)",
+  shared_notes: "Agreement to buy Moe's Tavern"
+)
+```
 
 ## Development
 
