@@ -1,0 +1,58 @@
+{
+  "code": 0,
+  "templates": [
+    {
+      "owner_email": "v******@***.com",
+      "created_time": 1522746328987,
+      "email_reminders": false,
+      "document_ids": [
+        {
+          "document_name": "4page170kbsquared file testrotated.pdf",
+          "document_size": 174307,
+          "document_order": "0",
+          "total_pages": 4,
+          "document_id": "2000000493029"
+        }
+      ],
+      "notes": "",
+      "reminder_period": 8,
+      "owner_id": "2000000002002",
+      "description": "",
+      "template_name": "Template 1",
+      "modified_time": 1522747039504,
+      "is_deleted": false,
+      "expiration_days": 1,
+      "is_sequential": true,
+      "template_id": "2000000493035",
+      "request_type_name": "Others",
+      "owner_first_name": "V*******",
+      "request_type_id": "2000000000135",
+      "owner_last_name": "",
+      "actions": [
+        {
+          "verify_recipient": true,
+          "role": "1",
+          "action_id": "2000000493038",
+          "action_type": "SIGN",
+          "private_notes": "Please get back to us for further queries",
+          "recipient_email": "",
+          "signing_order": 0,
+          "verification_type": "EMAIL",
+          "recipient_name": "",
+          "recipient_phonenumber": "",
+          "recipient_countrycode": ""
+        }
+      ]
+    }
+  ],
+  "message": "Template list retrieved successfully",
+  "page_context": {
+    "sort_column": "created_time",
+    "has_more_rows": false,
+    "start_index": 1,
+    "total_count": 1,
+    "sort_order": "DESC",
+    "row_count": 100
+  },
+  "status": "success"
+}

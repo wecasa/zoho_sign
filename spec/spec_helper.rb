@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require "pry"
+require "webmock/rspec"
+require "faker"
+
 require "zoho_sign"
 
 RSpec.configure do |config|
@@ -11,5 +15,12 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.before(:each) do
+    ENV["ZOHO_SIGN_CLIENT_ID"] = "0000.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    ENV["ZOHO_SIGN_CLIENT_SECRET"] = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    ENV["ZOHO_SIGN_ACCESS_TOKEN"] = "0000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    ENV["ZOHO_SIGN_REFRESH_TOKEN"] = "0000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   end
 end

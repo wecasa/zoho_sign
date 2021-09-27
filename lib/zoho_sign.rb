@@ -3,6 +3,12 @@
 require "dry-configurable"
 
 require_relative "zoho_sign/version"
+require_relative "zoho_sign/auth"
+require_relative "zoho_sign/connection"
+
+# Record classes
+require_relative "zoho_sign/template"
+require_relative "zoho_sign/document"
 
 # Namespace ZohoSign
 module ZohoSign
@@ -24,5 +30,15 @@ module ZohoSign
     setting :base_path, default: "/api/v1"
   end
 
+  setting :connection, reader: true, constructor: lambda { |params|
+    return unless params
+    raise Error, "ERROR: #{params[:error]}" if params && params[:error]
+
+    connection_params = params.dup.slice(:access_token, :expires_in, :refresh_token)
+    Connection.new(**connection_params)
+  }
+
   class Error < StandardError; end
+
+  class RecordNotFoundError < Error; end
 end
