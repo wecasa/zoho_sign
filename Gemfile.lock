@@ -7,7 +7,6 @@ PATH
       dry-configurable (~> 0.1)
       faraday
       faraday_middleware
-      multi_json
       rainbow
 
 GEM
@@ -61,7 +60,6 @@ GEM
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
     minitest (5.14.4)
-    multi_json (1.15.0)
     multipart-post (2.1.1)
     parallel (1.21.0)
     parser (3.0.2.0)

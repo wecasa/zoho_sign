@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "multi_json"
+require "json"
 require "faraday"
 require "faraday_middleware"
 require "addressable"
@@ -71,7 +71,7 @@ module ZohoSign
       log "POST #{uri}"
 
       result = Faraday.post(uri)
-      json = parse(result.body)
+      json = JSON.parse(result.body, symbolize_names: true)
       json.merge(refresh_token: refresh_token)
     end
 
