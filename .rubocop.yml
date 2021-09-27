@@ -16,6 +16,12 @@ Layout/LineLength:
 Metrics/ParameterLists:
   Enabled: false
 
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - 'zoho_sign.gemspec'

@@ -7,6 +7,7 @@ require "faraday_middleware"
 require_relative "response_handler"
 
 module ZohoSign
+  # Internal class that has all the logic to stablish a connection with Zoho API
   class Connection
     attr_accessor :access_token, :refresh_token, :api_domain, :api_base_path, :expires_ins
 

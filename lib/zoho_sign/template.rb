@@ -4,6 +4,7 @@ require_relative "base_record"
 require_relative "document"
 
 module ZohoSign
+  # Record class to interact with Zoho Sign Templates API
   class Template < ZohoSign::BaseRecord
     class << self
       # @param [String] :template_id Zoho Sign Template ID
@@ -34,7 +35,8 @@ module ZohoSign
       #
       # @return [Class] ZohoSign::Document instance
       #
-      def create_document(template_id:, field_data: {}, recipient_data: [], shared_notes: "", quicksend: true, document_name: nil)
+      def create_document(template_id:, field_data: {}, recipient_data: [], shared_notes: "", quicksend: true,
+                          document_name: nil)
         actions = recipient_data.map do |action_data|
           recipient = action_data.fetch(:recipient)
           {

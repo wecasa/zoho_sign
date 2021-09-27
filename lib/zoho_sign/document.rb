@@ -3,6 +3,7 @@
 require_relative "base_record"
 
 module ZohoSign
+  # Record class to interact with Zoho Sign Documents API
   class Document < ZohoSign::BaseRecord
     class << self
       private
@@ -14,10 +15,6 @@ module ZohoSign
       def data_key
         :requests
       end
-    end
-
-    def initialize(**attributes)
-      @attributes = attributes
     end
   end
 end

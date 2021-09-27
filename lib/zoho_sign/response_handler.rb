@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module ZohoSign
+  # Internal class to centralize the code related to the response of the Zoho Sign API
   class ResponseHandler
     def initialize(params)
       @params = params || {}
@@ -33,7 +34,7 @@ module ZohoSign
       @params.to_s
     end
 
-    def has_more_rows?
+    def more_rows?
       !!@params.dig(:page_context, :has_more_rows)
     end
 
@@ -42,12 +43,23 @@ module ZohoSign
       code?(9004)
     end
 
-    # @params = { code: 9008, status: "failure", message: "templates occurs less than minimum occurance of 1", error_param: "templates" }
+    # @params = {
+    #   code: 9008,
+    #   status: "failure",
+    #   message: "templates occurs less than minimum occurance of 1",
+    #   error_param: "templates"
+    # }
     def missing_param_error?
       code?(9008)
     end
 
-    # @params = { code: 9015, status: "failure", message: "Extra key found", status: "failure", error_param: "data[page_context][row_count]" }
+    # @params = {
+    #   code: 9015,
+    #   status: "failure",
+    #   message: "Extra key found",
+    #   status: "failure",
+    #   error_param: "data[page_context][row_count]"
+    # }
     def extra_key_found_error?
       code?(9015)
     end

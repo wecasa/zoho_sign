@@ -21,14 +21,15 @@ module ZohoSign
       # @param [String] :sort_order (nil)
       #
       # @return [Array] Array of instances of current class
-      def all(start_index: DEFAULT_START_INDEX, per_request: DEFAULT_RECORDS_PER_REQUEST, sort_column: nil, sort_order: nil)
+      def all(start_index: DEFAULT_START_INDEX, per_request: DEFAULT_RECORDS_PER_REQUEST,
+              sort_column: nil, sort_order: nil)
         params = build_params_for_index_action(start_index, per_request, sort_column, sort_order)
         body = connection.get(request_path, params)
         response = build_response(body)
         data = response.data(data_key)
 
         loop do
-          break unless response.has_more_rows?
+          break unless response.more_rows?
 
           start_index += response.data(data_key).count
           params = build_params_for_index_action(start_index, per_request, sort_column, sort_order)
