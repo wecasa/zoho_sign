@@ -17,19 +17,22 @@ RSpec.describe ZohoSign do
         }
       )
 
-      expect(described_class.config.values).to eq({
-        debug: false,
-        oauth: {
-          client_id: "1000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-          client_secret: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-          access_token: "2000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-          refresh_token: "3000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-        },
-        api: {
-          domain: "https://sign.zoho.com",
-          base_path: "/api/v1"
-        }
-      })
+      expect(described_class.config.values)
+        .to eq(
+          {
+            debug: false,
+            oauth: {
+              client_id: "1000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              client_secret: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              access_token: "2000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              refresh_token: "3000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            },
+            api: {
+              domain: "https://sign.zoho.com",
+              base_path: "/api/v1"
+            }
+          }
+        )
     end
   end
 end

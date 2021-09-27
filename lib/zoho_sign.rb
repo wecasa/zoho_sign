@@ -4,6 +4,7 @@ require "dry-configurable"
 
 require_relative "zoho_sign/version"
 
+# Namespace ZohoSign
 module ZohoSign
   extend Dry::Configurable
 
