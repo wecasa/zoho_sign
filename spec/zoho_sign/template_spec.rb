@@ -14,7 +14,7 @@ RSpec.describe ZohoSign::Template do
   end
 
   before do
-    ZohoSign.config.debug = true
+    # ZohoSign.config.debug = true
 
     ZohoSign.config.update(
       oauth: {
@@ -38,7 +38,8 @@ RSpec.describe ZohoSign::Template do
           headers: {
             "Authorization" => /Zoho-oauthtoken .*/,
             "Content-Type" => "application/x-www-form-urlencoded"
-          })
+          }
+        )
         .to_return(
           status: 200,
           body: body.to_json,
@@ -71,7 +72,8 @@ RSpec.describe ZohoSign::Template do
           headers: {
             "Authorization" => /Zoho-oauthtoken .*/,
             "Content-Type" => "application/x-www-form-urlencoded"
-          })
+          }
+        )
         .to_return(
           status: 200,
           body: body.to_json,
@@ -101,8 +103,9 @@ RSpec.describe ZohoSign::Template do
         .with(
           headers: {
             "Authorization" => /Zoho-oauthtoken .*/,
-           "Content-Type" => "application/x-www-form-urlencoded"
-          })
+            "Content-Type" => "application/x-www-form-urlencoded"
+          }
+        )
         .to_return(
           status: 200,
           body: body.to_json,
@@ -115,7 +118,7 @@ RSpec.describe ZohoSign::Template do
 
     let(:template_id) { Faker::Number.number(digits: 17).to_s }
     let(:recipient_name) { Faker::TvShows::Simpsons.character }
-    let(:recipient_email) { Faker::Internet.email(name:recipient_name) }
+    let(:recipient_email) { Faker::Internet.email(name: recipient_name) }
     let(:recipient_action_id) { Faker::Number.number(digits: 17).to_s }
 
     it "calls zoho sign template api and returns an instance of current class" do
@@ -132,7 +135,7 @@ RSpec.describe ZohoSign::Template do
           recipient: {
             name: recipient_name,
             email: recipient_email,
-            verify: false,
+            verify: false
           },
           private_notes: "Please sign this agreement"
         }
@@ -158,8 +161,9 @@ RSpec.describe ZohoSign::Template do
         .with(
           headers: {
             "Authorization" => /Zoho-oauthtoken .*/,
-           "Content-Type" => "application/x-www-form-urlencoded"
-          })
+            "Content-Type" => "application/x-www-form-urlencoded"
+          }
+        )
         .to_return(
           status: 200,
           body: body.to_json,
@@ -173,7 +177,7 @@ RSpec.describe ZohoSign::Template do
     let(:template_id) { Faker::Number.number(digits: 17).to_s }
     let(:template) { described_class.new(template_id: template_id) }
     let(:recipient_name) { Faker::TvShows::Simpsons.character }
-    let(:recipient_email) { Faker::Internet.email(name:recipient_name) }
+    let(:recipient_email) { Faker::Internet.email(name: recipient_name) }
     let(:recipient_action_id) { Faker::Number.number(digits: 17).to_s }
 
     it "calls zoho sign template api and returns an instance of current class" do
@@ -190,7 +194,7 @@ RSpec.describe ZohoSign::Template do
           recipient: {
             name: recipient_name,
             email: recipient_email,
-            verify: false,
+            verify: false
           },
           private_notes: "Please sign this agreement"
         }

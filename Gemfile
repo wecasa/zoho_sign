@@ -6,8 +6,8 @@ source "https://rubygems.org"
 gemspec
 
 # Utility
-gem "rake", "~> 13.0"
 gem "dotenv"
+gem "rake", "~> 13.0"
 
 # Lints
 gem "rubocop", "~> 1.7"
@@ -16,6 +16,6 @@ gem "rubocop", "~> 1.7"
 gem "pry"
 
 # Testing
+gem "faker"
 gem "rspec", "~> 3.0"
 gem "webmock"
-gem "faker"

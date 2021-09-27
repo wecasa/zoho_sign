@@ -13,6 +13,10 @@ Style/StringLiteralsInInterpolation:
 Layout/LineLength:
   Max: 120
 
+Metrics/ParameterLists:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
+    - 'zoho_sign.gemspec'
     - 'spec/**/*.rb'

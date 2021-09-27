@@ -4,6 +4,7 @@ require "json"
 require "active_support/core_ext/object/to_query"
 
 module ZohoSign
+  # The main class for record classes
   class BaseRecord
     # Default number of records when fetching all.
     DEFAULT_RECORDS_PER_REQUEST = 100
@@ -28,6 +29,7 @@ module ZohoSign
 
         loop do
           break unless response.has_more_rows?
+
           start_index += response.data(data_key).count
           params = build_params_for_index_action(start_index, per_request, sort_column, sort_order)
           body = connection.get(request_path, params)

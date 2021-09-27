@@ -58,7 +58,7 @@ module ZohoSign
     end
 
     # @params = { code: 9039, status: "failure", message: "Unable to process your request" }
-    def extra_key_found_error?
+    def unable_to_process_request_error?
       code?(9039)
     end
 
@@ -69,7 +69,7 @@ module ZohoSign
 
     # @params = { code: 12001, status: "failure", message: "Upgrade API credits to access resources using API" }
     def no_more_credits_error?
-      code?(12001)
+      code?(12_001)
     end
 
     private

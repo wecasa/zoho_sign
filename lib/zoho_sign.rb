@@ -12,8 +12,6 @@ require_relative "zoho_sign/document"
 
 # Namespace ZohoSign
 module ZohoSign
-  module_function
-
   extend Dry::Configurable
 
   setting :debug, default: false
@@ -32,7 +30,7 @@ module ZohoSign
     setting :base_path, default: "/api/v1"
   end
 
-  setting :connection, reader: true, constructor: -> (params) {
+  setting :connection, reader: true, constructor: lambda { |params|
     return unless params
     raise Error, "ERROR: #{params[:error]}" if params && params[:error]
 
@@ -41,5 +39,6 @@ module ZohoSign
   }
 
   class Error < StandardError; end
+
   class RecordNotFoundError < Error; end
 end
