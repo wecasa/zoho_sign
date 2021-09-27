@@ -11,6 +11,7 @@ RSpec.describe ZohoSign do
       described_class.config.connection = nil
       described_class.config.oauth.client_id = "1000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
       described_class.config.oauth.client_secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      described_class.config.oauth.redirect_uri = "http://example.com"
 
       described_class.config.update(
         oauth: {
@@ -27,7 +28,8 @@ RSpec.describe ZohoSign do
               client_id: "1000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
               client_secret: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
               access_token: "2000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-              refresh_token: "3000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+              refresh_token: "3000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              redirect_uri: "http://example.com"
             },
             connection: nil,
             api: {

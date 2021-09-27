@@ -60,6 +60,29 @@ module ZohoSign
       Addressable::URI.join(AUTH_DOMAIN_PATH, TOKEN_PATH)
     end
 
+    def self.get_token(grant_token)
+      new.get_token(grant_token)
+    end
+
+    def get_token(grant_token)
+      result = Faraday.post(token_url(grant_token))
+      JSON.parse(result.body, symbolize_names: true)
+    end
+
+    def token_url(grant_token)
+      uri = token_full_uri
+
+      uri.query_values = {
+        client_id: @configuration.oauth.client_id,
+        client_secret: @configuration.oauth.client_secret,
+        code: grant_token,
+        redirect_uri: @configuration.oauth.redirect_uri,
+        grant_type: "authorization_code"
+      }
+
+      Addressable::URI.unencode(uri.to_s)
+    end
+
     private
 
     def log(text)

@@ -23,6 +23,7 @@ module ZohoSign
     setting :client_secret
     setting :access_token
     setting :refresh_token
+    setting :redirect_uri, default: "https://example.com"
   end
 
   setting :api do
