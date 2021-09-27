@@ -19,7 +19,6 @@ module ZohoSign
       ZohoSign.account.all
       ZohoSign.documents.all
       ZohoSign.templates.all
-      ZohoSign.account.all
     ].freeze
 
     DEFAULT_ACCESS_TYPE = "offline"
