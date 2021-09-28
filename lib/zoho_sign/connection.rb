@@ -47,6 +47,13 @@ module ZohoSign
       response.body
     end
 
+    def download(path, params = {})
+      log "GET #{path} with #{params}"
+
+      response = with_refresh { download_adapter.get(path, params) }
+      response.body
+    end
+
     private
 
     def log(text)
@@ -57,6 +64,8 @@ module ZohoSign
 
     def with_refresh
       http_response = yield
+
+      return http_response if http_response.env.response_headers["Content-Type"] != "application/json"
 
       response = ZohoSign::ResponseHandler.new(http_response.body)
 
@@ -93,9 +102,18 @@ module ZohoSign
     def adapter
       Faraday.new(url: base_url) do |conn|
         conn.headers["Authorization"] = authorization_token if access_token?
-        conn.headers["content-type"] = "application/x-www-form-urlencoded"
+        conn.headers["Content-Type"] = "application/x-www-form-urlencoded"
         conn.request :json
         conn.response :json, parser_options: { symbolize_names: true }
+        conn.response :logger if ZohoSign.config.debug
+        conn.adapter Faraday.default_adapter
+      end
+    end
+
+    def download_adapter
+      Faraday.new(url: base_url) do |conn|
+        conn.headers["Authorization"] = authorization_token if access_token?
+        conn.headers["Content-Type"] = "application/x-www-form-urlencoded"
         conn.response :logger if ZohoSign.config.debug
         conn.adapter Faraday.default_adapter
       end
