@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "activesupport"
   spec.add_dependency "addressable"
-  spec.add_dependency "dry-configurable", "~> 0.1"
+  spec.add_dependency "dry-configurable", "~> 0.13"
   spec.add_dependency "faraday"
   spec.add_dependency "faraday_middleware"
   spec.add_dependency "rainbow"
