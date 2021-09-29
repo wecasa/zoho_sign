@@ -18,7 +18,12 @@ ZohoSign.config.update(
   }
 )
 
-access_token_params = ZohoSign::Auth.refresh_token(ENV["ZOHO_SIGN_REFRESH_TOKEN"])
+unless ENV["ZOHO_SIGN_REFRESH_TOKEN"]
+  params = ZohoSign::Auth.get_token(ENV["ZOHO_SIGN_ACCESS_TOKEN"])
+  ZohoSign.config.oauth.refresh_token = params[:refresh_token] if params.key?(:refresh_token)
+end
+
+access_token_params = ZohoSign::Auth.refresh_token(ZohoSign.config.oauth.refresh_token)
 ZohoSign.config.connection = access_token_params
 
 Pry.start
