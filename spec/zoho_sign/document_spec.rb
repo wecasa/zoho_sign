@@ -30,7 +30,6 @@ RSpec.describe ZohoSign::Document do
   describe ".download_pdf" do
     let(:document_id) { Faker::Number.number(digits: 7).to_s }
     let!(:download_pdf_from_template_stub) do
-      body = JSON.parse(File.read("spec/webmocks/document_pdf.json"), symbolize_names: true)
       stub_request(:get, "https://sign.zoho.com/api/v1/requests/#{document_id}/pdf")
         .with(
           headers: {
@@ -40,7 +39,7 @@ RSpec.describe ZohoSign::Document do
         )
         .to_return(
           status: 200,
-          body: body.to_json,
+          body: File.read("spec/webmocks/document.pdf"),
           headers: {
             "Content-Type" => "application/pdf",
             "charset" => "UTF-8"

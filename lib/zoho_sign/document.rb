@@ -4,6 +4,7 @@ require "securerandom"
 require_relative "base_record"
 
 module ZohoSign
+  # Record class to interact with Zoho Sign Documents API
   class Document < ZohoSign::BaseRecord
     class << self
       def download_pdf(document_id)
