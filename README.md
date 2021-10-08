@@ -99,12 +99,23 @@ recipient_data = [
 ]
 
 document = ZohoSign::Template.create_document(
-  template_id: "12345678900000000",
+  template_id: template.attributes[:template_id],
   field_data: field_data,
   recipient_data: recipient_data,
   document_name: "Agreement (v3)",
   shared_notes: "Agreement to buy Moe's Tavern"
 )
+```
+
+Download document:
+
+```ruby
+document = ZohoSign::Document.find("12345656000000")
+document.download_pdf
+
+# OR
+
+ZohoSign::Document.download_pdf("12345656000000")
 ```
 
 ## Development
