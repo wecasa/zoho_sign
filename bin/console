@@ -23,7 +23,12 @@ unless ENV["ZOHO_SIGN_REFRESH_TOKEN"]
   ZohoSign.config.oauth.refresh_token = params[:refresh_token] if params.key?(:refresh_token)
 end
 
-access_token_params = ZohoSign::Auth.refresh_token(ZohoSign.config.oauth.refresh_token)
-ZohoSign.config.connection = access_token_params
+ZohoSign.config.connection = {
+  access_token: ZohoSign.config.oauth.access_token,
+  refresh_token: ZohoSign.config.oauth.refresh_token,
+  api_domain: ZohoSign.config.api.domain,
+  api_base_path: ZohoSign.config.api.base_path,
+  expires_in: 3600
+}
 
 Pry.start

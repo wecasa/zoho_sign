@@ -65,10 +65,9 @@ module ZohoSign
     def with_refresh
       http_response = yield
 
-      return http_response if http_response.env.response_headers["Content-Type"] != "application/json"
+      return http_response unless http_response.env.response_headers["Content-Type"].include?("application/json")
 
       response = ZohoSign::ResponseHandler.new(http_response.body)
-
       # Try to refresh the token and try again
       if response.invalid_token_error? && refresh_token?
         log "Refreshing outdated token... #{@access_token}"
@@ -80,7 +79,7 @@ module ZohoSign
 
       raise ZohoSign::Error, response.detailed_message if response.error?
 
-      http_response
+      response
     end
 
     def base_url
@@ -92,11 +91,11 @@ module ZohoSign
     end
 
     def access_token?
-      @access_token
+      !@access_token.empty?
     end
 
     def refresh_token?
-      @refresh_token
+      !@refresh_token.empty?
     end
 
     def adapter
@@ -104,6 +103,7 @@ module ZohoSign
         conn.headers["Authorization"] = authorization_token if access_token?
         conn.headers["Content-Type"] = "application/x-www-form-urlencoded"
         conn.request :json
+        conn.request :retry
         conn.response :json, parser_options: { symbolize_names: true }
         conn.response :logger if ZohoSign.config.debug
         conn.adapter Faraday.default_adapter
