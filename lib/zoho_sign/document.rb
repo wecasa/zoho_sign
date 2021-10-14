@@ -11,6 +11,7 @@ module ZohoSign
         body = connection.download("#{request_path}/#{document_id}/pdf")
         pdf_tmp = Tempfile.new([tempfile_name, ".pdf"], encoding: "ascii-8bit")
         pdf_tmp.write(body)
+        pdf_tmp.rewind
         pdf_tmp
       end
 
