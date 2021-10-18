@@ -47,6 +47,13 @@ module ZohoSign
       response.body
     end
 
+    def download(path, params = {})
+      log "GET #{path} with #{params}"
+
+      response = with_refresh { download_adapter.get(path, params) }
+      response.body
+    end
+
     private
 
     def log(text)
@@ -58,8 +65,9 @@ module ZohoSign
     def with_refresh
       http_response = yield
 
-      response = ZohoSign::ResponseHandler.new(http_response.body)
+      return http_response unless http_response.env.response_headers["Content-Type"].include?("application/json")
 
+      response = ZohoSign::ResponseHandler.new(http_response.body)
       # Try to refresh the token and try again
       if response.invalid_token_error? && refresh_token?
         log "Refreshing outdated token... #{@access_token}"
@@ -71,7 +79,7 @@ module ZohoSign
 
       raise ZohoSign::Error, response.detailed_message if response.error?
 
-      http_response
+      response
     end
 
     def base_url
@@ -83,19 +91,29 @@ module ZohoSign
     end
 
     def access_token?
-      @access_token
+      !@access_token.empty?
     end
 
     def refresh_token?
-      @refresh_token
+      !@refresh_token.empty?
     end
 
     def adapter
       Faraday.new(url: base_url) do |conn|
         conn.headers["Authorization"] = authorization_token if access_token?
-        conn.headers["content-type"] = "application/x-www-form-urlencoded"
+        conn.headers["Content-Type"] = "application/x-www-form-urlencoded"
         conn.request :json
+        conn.request :retry
         conn.response :json, parser_options: { symbolize_names: true }
+        conn.response :logger if ZohoSign.config.debug
+        conn.adapter Faraday.default_adapter
+      end
+    end
+
+    def download_adapter
+      Faraday.new(url: base_url) do |conn|
+        conn.headers["Authorization"] = authorization_token if access_token?
+        conn.headers["Content-Type"] = "application/x-www-form-urlencoded"
         conn.response :logger if ZohoSign.config.debug
         conn.adapter Faraday.default_adapter
       end
