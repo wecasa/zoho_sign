@@ -114,6 +114,8 @@ module ZohoSign
       Faraday.new(url: base_url) do |conn|
         conn.headers["Authorization"] = authorization_token if access_token?
         conn.headers["Content-Type"] = "application/x-www-form-urlencoded"
+        conn.request :retry
+        conn.response :json, content_type: /\bjson$/
         conn.response :logger if ZohoSign.config.debug
         conn.adapter Faraday.default_adapter
       end
