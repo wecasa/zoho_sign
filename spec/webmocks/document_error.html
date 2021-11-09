@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <link rel=\ "stylesheet\" href=\ "https://css.zohostatic.com/sign/1409/assets/vendor.css\">
+    <link rel=\ "stylesheet\" href=\ "https://css.zohostatic.com/sign/1409/assets/style.css\">
+    <link rel=\ "stylesheet\" href=\ "https://css.zohostatic.com/sign/1409/fonts/font-styles.css\">
+    <link rel=\ "SHORTCUT ICON\" href=\ "https://css.zohostatic.com/sign/1409/images/favicon.ico\">
+    <title>Zoho Sign</title>
+    <style>
+        #close-account {
+            text-decoration: underline;
+            position: relative;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class=\ "z-sign main-content\">
+    <script type=\ "text/javascript\" src=\ "https://js.zohostatic.com/sign/1409/assets/vendor.js\">
+    </script>
+    <script type=\ "text/javascript\">
+        var allow_close = 'false' === \"true\";function loadCallback(){if(allow_close){jQuery(\"#close-account\").show();//NoI18N}}function getCSRFCookie() {var csrf = getCookie(\"zscsrfcookie\"); // No I18Nreturn csrf;}function getCookie(name) {var init = document.cookie.indexOf(name + \"=\");if (init === 0){init = document.cookie.indexOf(\" \" + name + \"=\") + 1;}if (init != -1) {var userlen = name.length;var beginIndex = init + userlen;var endIndex = document.cookie.indexOf(\";\", beginIndex);if (endIndex == -1) {endIndex = document.cookie.length;}var cVal = document.cookie.substring(beginIndex + 1, endIndex);return cVal;}return null;}function closeAccount(){var postData= [];var zscsrfparam = getCSRFCookie();postData.push({name: 'zscsrfparam',//No I18Nvalue: zscsrfparam}); jQuery.ajax({url: '/api/v1/accounts/close', // No I18Ntype: 'PUT', // No I18Ndata: postData,dataType: 'json', // No I18Nasync: true,success: function (data, textStatus, jqXHR) {if (data.status == \"success\") {jQuery(\"#close-account\").removeAttr(\"onclick\");//No I18NjQuery(\"#errormsg\").hide();//No I18NjQuery(\"#close-account\").text(\"Your account has been closed\");//No I18N}}});}window.addEventListener(\"load\", function () {loadCallback();});
+    </script>
+    <div class=\ "wrapper\">
+        <div class=\ "left-slide\">
+            <div class=\ "zs-logo-container guest-side\">
+                <a href=\ "/\"><img src=\ "https://css.zohostatic.com/sign/1409/images/logo.png\">
+                    <div class=\ "logo-text\">Sign</div>
+                </a>
+            </div>
+            <header class=\ "guest-header\" style=\ "width: 1268px;\"></header>
+        </div>
+        <header class=\ "main-header\"></header>
+        <div class=\ "background-style\" style=\ "width:100%;\">
+            <div class=\ "message-body\">
+                <div class=\ "back-clr\"></div>
+                <div class=\ "error-message\"><span id=\ "errormsg\">Invalid Oauth token</span>
+                    <div id=\ "close-account\" style=\ "display:none\" onclick=\ "closeAccount()\">Close account</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

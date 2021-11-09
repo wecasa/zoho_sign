@@ -25,8 +25,11 @@ RSpec.describe ZohoSign::Template do
       }
     )
 
-    params = ZohoSign::Auth.refresh_token(ENV["ZOHO_SIGN_REFRESH_TOKEN"])
-    ZohoSign.config.connection = params
+    ZohoSign.config.connection = {
+      access_token: ZohoSign.config.oauth.access_token,
+      refresh_token: ZohoSign.config.oauth.refresh_token,
+      expires_in: 3600
+    }
   end
 
   describe ".all" do
@@ -37,7 +40,7 @@ RSpec.describe ZohoSign::Template do
         .with(
           headers: {
             "Authorization" => /Zoho-oauthtoken .*/,
-            "Content-Type" => "application/x-www-form-urlencoded"
+            "Content-Type" => "application/json"
           }
         )
         .to_return(
@@ -57,7 +60,6 @@ RSpec.describe ZohoSign::Template do
       expect(object).to be_kind_of(Array)
       expect(object.size).to eq(1)
       expect(object.first).to be_kind_of(described_class)
-      expect(refresh_token_stub).to have_been_requested
       expect(get_templates_stub).to have_been_requested
     end
   end
@@ -70,8 +72,8 @@ RSpec.describe ZohoSign::Template do
       stub_request(:get, "https://sign.zoho.com/api/v1/templates/#{template_id}")
         .with(
           headers: {
-            "Authorization" => /Zoho-oauthtoken .*/,
-            "Content-Type" => "application/x-www-form-urlencoded"
+            "Authorization" => "Zoho-oauthtoken #{ENV["ZOHO_SIGN_ACCESS_TOKEN"]}",
+            "Content-Type" => "application/json"
           }
         )
         .to_return(
@@ -90,8 +92,48 @@ RSpec.describe ZohoSign::Template do
       object = described_class.find(template_id)
       expect(object).to be_kind_of(described_class)
       expect(object.attributes[:template_id]).to eq(template_id)
-      expect(refresh_token_stub).to have_been_requested
       expect(get_template_stub).to have_been_requested
+    end
+
+    context "when Zoho Sign returns HTML with error" do
+      before do
+        ZohoSign.config.update(
+          oauth: {
+            client_id: ENV["ZOHO_SIGN_CLIENT_ID"],
+            client_secret: ENV["ZOHO_SIGN_CLIENT_SECRET"],
+            access_token: "Invalid Token",
+            refresh_token: ENV["ZOHO_SIGN_REFRESH_TOKEN"]
+          }
+        )
+
+        ZohoSign.config.connection = {
+          access_token: "Invalid Token",
+          refresh_token: ENV["ZOHO_SIGN_REFRESH_TOKEN"],
+          expires_in: 3600
+        }
+      end
+
+      let!(:get_template_stub_error) do
+        stub_request(:get, "https://sign.zoho.com/api/v1/templates/#{template_id}")
+          .with(
+            headers: {
+              "Authorization" => "Zoho-oauthtoken Invalid Token",
+              "Content-Type" => "application/json"
+            }
+          )
+          .to_return(
+            status: 401,
+            body: File.read("spec/webmocks/document_error.html"),
+            headers: { "Content-Type" => "text/html" }
+          )
+      end
+
+      it "refreshes token and returns an instance of current class" do
+        described_class.find(template_id)
+        expect(get_template_stub_error).to have_been_requested
+        expect(refresh_token_stub).to have_been_requested
+        expect(get_template_stub).to have_been_requested
+      end
     end
   end
 
@@ -103,7 +145,7 @@ RSpec.describe ZohoSign::Template do
         .with(
           headers: {
             "Authorization" => /Zoho-oauthtoken .*/,
-            "Content-Type" => "application/x-www-form-urlencoded"
+            "Content-Type" => "application/json"
           }
         )
         .to_return(
@@ -148,7 +190,6 @@ RSpec.describe ZohoSign::Template do
         shared_notes: "Agreement to buy Moe's Tavern"
       )
       expect(object).to be_kind_of(ZohoSign::Document)
-      expect(refresh_token_stub).to have_been_requested
       expect(create_document_from_template_stub).to have_been_requested
     end
   end
@@ -161,7 +202,7 @@ RSpec.describe ZohoSign::Template do
         .with(
           headers: {
             "Authorization" => /Zoho-oauthtoken .*/,
-            "Content-Type" => "application/x-www-form-urlencoded"
+            "Content-Type" => "application/json"
           }
         )
         .to_return(
@@ -206,7 +247,6 @@ RSpec.describe ZohoSign::Template do
         shared_notes: "Agreement to buy Moe's Tavern"
       )
       expect(object).to be_kind_of(ZohoSign::Document)
-      expect(refresh_token_stub).to have_been_requested
       expect(create_document_from_template_stub).to have_been_requested
     end
   end

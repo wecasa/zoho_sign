@@ -3,47 +3,54 @@
 module ZohoSign
   # Internal class to centralize the code related to the response of the Zoho Sign API
   class ResponseHandler
-    def initialize(params)
-      @params = params || {}
+    def initialize(response, http_response = nil)
+      @response = response || {}
+      @http_response = http_response
     end
 
     def body
-      @params
+      @response
     end
 
     def data(key)
-      @params[key]
+      return unless @response.is_a?(Hash)
+
+      @response[key]
     end
 
     def success?
-      @params[:status] == "success"
+      return false unless @response.is_a?(Hash)
+
+      @response[:status] == "success"
     end
 
     def error?
-      @params[:status] == "error" || @params[:status] == "failure"
+      (!@http_response.nil? && @http_response != 200) ||
+        @response[:status] == "error" ||
+        @response[:status] == "failure"
     end
 
     def message
       [
-        @params[:message],
-        ("error_param: #{@params[:error_param]}" if @params.key?(:error_param))
+        @response[:message],
+        ("error_param: #{@response[:error_param]}" if @response.key?(:error_param))
       ].join(" ")
     end
 
     def detailed_message
-      @params.to_s
+      @response.to_s
     end
 
     def more_rows?
-      !!@params.dig(:page_context, :has_more_rows)
+      !!@response.dig(:page_context, :has_more_rows)
     end
 
-    # @params = { code: 9004, status: "failure", message: "No match found" }
+    # @response = { code: 9004, status: "failure", message: "No match found" }
     def not_found_error?
       code?(9004)
     end
 
-    # @params = {
+    # @response = {
     #   code: 9008,
     #   status: "failure",
     #   message: "templates occurs less than minimum occurance of 1",
@@ -53,7 +60,7 @@ module ZohoSign
       code?(9008)
     end
 
-    # @params = {
+    # @response = {
     #   code: 9015,
     #   status: "failure",
     #   message: "Extra key found",
@@ -64,22 +71,26 @@ module ZohoSign
       code?(9015)
     end
 
-    # @params = { code: 9031, status: "failure", message: "Ticket invalid" }
+    # @response = { code: 9031, status: "failure", message: "Ticket invalid" }
     def ticket_invalid_error?
       code?(9031)
     end
 
-    # @params = { code: 9039, status: "failure", message: "Unable to process your request" }
+    # @response = { code: 9039, status: "failure", message: "Unable to process your request" }
     def unable_to_process_request_error?
       code?(9039)
     end
 
-    # @params = { code: 9041, status: "failure", message: "Invalid Oauth token" }
+    # @response = { code: 9041, status: "failure", message: "Invalid Oauth token" }
     def invalid_token_error?
-      code?(9041)
+      if @response.is_a?(Hash)
+        code?(9041)
+      else
+        @http_response == 401 && @response.include?("Invalid Oauth token")
+      end
     end
 
-    # @params = { code: 12001, status: "failure", message: "Upgrade API credits to access resources using API" }
+    # @response = { code: 12001, status: "failure", message: "Upgrade API credits to access resources using API" }
     def no_more_credits_error?
       code?(12_001)
     end
@@ -87,7 +98,9 @@ module ZohoSign
     private
 
     def code?(code)
-      @params.key?(:code) && @params[:code] == code
+      return unless @response.is_a?(Hash)
+
+      @response.key?(:code) && @response[:code] == code
     end
   end
 end
