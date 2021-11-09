@@ -25,6 +25,8 @@ module ZohoSign
     end
 
     def error?
+      return false if @http_response == 200
+
       (!@http_response.nil? && @http_response != 200) ||
         @response[:status] == "error" ||
         @response[:status] == "failure"
