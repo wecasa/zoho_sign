@@ -21,7 +21,7 @@ module ZohoSign
     def success?
       return false unless @response.is_a?(Hash)
 
-      @response[:status] == "success"
+      @http_response == 200 || @response[:status] == "success"
     end
 
     def error?
