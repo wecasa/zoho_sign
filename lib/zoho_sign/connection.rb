@@ -64,17 +64,14 @@ module ZohoSign
 
     def with_refresh
       http_response = yield
-
-      return http_response unless http_response.env.response_headers["Content-Type"].include?("application/json")
-
-      response = ZohoSign::ResponseHandler.new(http_response.body)
+      response = ZohoSign::ResponseHandler.new(http_response.body, http_response.status)
       # Try to refresh the token and try again
       if response.invalid_token_error? && refresh_token?
         log "Refreshing outdated token... #{@access_token}"
         params = ZohoSign::Auth.refresh_token(@refresh_token)
         @access_token = params[:access_token]
         http_response = yield
-        response = ZohoSign::ResponseHandler.new(http_response.body)
+        response = ZohoSign::ResponseHandler.new(http_response.body, http_response.status)
       end
 
       raise ZohoSign::Error, response.detailed_message if response.error?
@@ -101,10 +98,10 @@ module ZohoSign
     def adapter
       Faraday.new(url: base_url) do |conn|
         conn.headers["Authorization"] = authorization_token if access_token?
-        conn.headers["Content-Type"] = "application/x-www-form-urlencoded"
+        conn.headers["Content-Type"] = "application/json"
         conn.request :json
         conn.request :retry
-        conn.response :json, parser_options: { symbolize_names: true }
+        conn.response :json, parser_options: { symbolize_names: true }, content_type: /\bjson$/
         conn.response :logger if ZohoSign.config.debug
         conn.adapter Faraday.default_adapter
       end
@@ -115,7 +112,7 @@ module ZohoSign
         conn.headers["Authorization"] = authorization_token if access_token?
         conn.headers["Content-Type"] = "application/x-www-form-urlencoded"
         conn.request :retry
-        conn.response :json, content_type: /\bjson$/
+        conn.response :json, parser_options: { symbolize_names: true }, content_type: /\bjson$/
         conn.response :logger if ZohoSign.config.debug
         conn.adapter Faraday.default_adapter
       end
