@@ -40,7 +40,7 @@ RSpec.describe ZohoSign::Template do
         .with(
           headers: {
             "Authorization" => /Zoho-oauthtoken .*/,
-            "Content-Type" => "application/json"
+            "Content-Type" => "application/x-www-form-urlencoded"
           }
         )
         .to_return(
@@ -73,7 +73,7 @@ RSpec.describe ZohoSign::Template do
         .with(
           headers: {
             "Authorization" => "Zoho-oauthtoken #{ENV["ZOHO_SIGN_ACCESS_TOKEN"]}",
-            "Content-Type" => "application/json"
+            "Content-Type" => "application/x-www-form-urlencoded"
           }
         )
         .to_return(
