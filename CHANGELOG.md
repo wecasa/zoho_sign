@@ -8,3 +8,4 @@
   - `ZohoSign::Template.create_document`
   - `ZohoSign::Document.all`
   - `ZohoSign::Document.find`
+  - `ZohoSign::Document.download_pdf`
