@@ -19,3 +19,6 @@ gem "pry"
 gem "faker"
 gem "rspec", "~> 3.0"
 gem "webmock"
+
+# Publish Gem
+gem "gem-release", "~> 2.2"
