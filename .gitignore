@@ -12,3 +12,5 @@
 
 # dotenv
 .env
+
+Gemfile.lock
