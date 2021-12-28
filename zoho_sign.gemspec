@@ -5,7 +5,7 @@ require_relative "lib/zoho_sign/version"
 Gem::Specification.new do |spec|
   spec.name = "zoho_sign"
   spec.version = ZohoSign::VERSION
-  spec.authors = ["Wecasa Developers Team", "Mohamed Ziata"]
+  spec.authors = ["Wecasa Developers Team", "Mohamed Ziata", "Louise", "Romain Verbeke"]
   spec.email = ["tech@wecasa.fr", "wakematta@gmail.com"]
 
   spec.summary = "Zoho Sign API Wrapper"
