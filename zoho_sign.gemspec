@@ -3,15 +3,15 @@
 require_relative "lib/zoho_sign/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "zoho_sign"
-  spec.version       = ZohoSign::VERSION
-  spec.authors       = ["Wecasa Developers Team", "Mohamed Ziata"]
-  spec.email         = ["tech@wecasa.fr", "wakematta@gmail.com"]
+  spec.name = "zoho_sign"
+  spec.version = ZohoSign::VERSION
+  spec.authors = ["Wecasa Developers Team", "Mohamed Ziata"]
+  spec.email = ["tech@wecasa.fr", "wakematta@gmail.com"]
 
-  spec.summary       = "Zoho Sign API Wrapper"
-  spec.description   = "Ruby gem to allow easy interaction with Zoho Sign API (v1)."
-  spec.homepage      = "https://www.zoho.com/sign/api"
-  spec.license       = "MIT"
+  spec.summary = "Zoho Sign API Wrapper"
+  spec.description = "Ruby gem to allow easy interaction with Zoho Sign API (v1)."
+  spec.homepage = "https://www.zoho.com/sign/api"
+  spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
@@ -29,8 +29,8 @@ Gem::Specification.new do |spec|
       (f == __FILE__) || f.match(%r{\A(?:(?:test|spec|features)/|\.(?:git|travis|circleci)|appveyor)})
     end
   end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.bindir = "exe"
+  spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem

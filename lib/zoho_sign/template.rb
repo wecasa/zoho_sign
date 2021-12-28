@@ -35,8 +35,7 @@ module ZohoSign
       #
       # @return [Class] ZohoSign::Document instance
       #
-      def create_document(template_id:, field_data: {}, recipient_data: [], shared_notes: "", quicksend: true,
-                          document_name: nil)
+      def create_document(template_id:, field_data: {}, recipient_data: [], shared_notes: "", quicksend: true, document_name: nil)
         actions = recipient_data.map do |action_data|
           recipient = action_data.fetch(:recipient)
           {

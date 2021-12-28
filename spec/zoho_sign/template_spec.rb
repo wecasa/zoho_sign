@@ -124,7 +124,7 @@ RSpec.describe ZohoSign::Template do
           .to_return(
             status: 401,
             body: File.read("spec/webmocks/document_error.html"),
-            headers: { "Content-Type" => "text/html" }
+            headers: {"Content-Type" => "text/html"}
           )
       end
 
