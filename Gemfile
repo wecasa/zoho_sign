@@ -10,7 +10,7 @@ gem "dotenv"
 gem "rake", "~> 13.0"
 
 # Lints
-gem "rubocop", "~> 1.7"
+gem "standard", "~> 1.5"
 
 # Console
 gem "pry"
