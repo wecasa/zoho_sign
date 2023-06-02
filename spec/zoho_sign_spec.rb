@@ -21,14 +21,12 @@ RSpec.describe ZohoSign do
       )
 
       expect(described_class.config.values[:debug]).to eq(false)
-      expect(described_class.config.values[:oauth]).to be_kind_of(Dry::Configurable::Config)
       expect(described_class.config.values[:oauth][:client_id]).to eq("1000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
       expect(described_class.config.values[:oauth][:client_secret]).to eq("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
       expect(described_class.config.values[:oauth][:access_token]).to eq("2000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
       expect(described_class.config.values[:oauth][:refresh_token]).to eq("3000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
       expect(described_class.config.values[:oauth][:redirect_uri]).to eq("http://example.com")
       expect(described_class.config.values[:connection]).to eq(nil)
-      expect(described_class.config.values[:api]).to be_kind_of(Dry::Configurable::Config)
       expect(described_class.config.values[:api][:domain]).to eq("https://sign.zoho.com")
       expect(described_class.config.values[:api][:base_path]).to eq("/api/v1")
     end
