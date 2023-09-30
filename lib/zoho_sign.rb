@@ -27,6 +27,7 @@ module ZohoSign
   end
 
   setting :api do
+    setting :auth_domain, default: "https://accounts.zoho.com"
     setting :domain, default: "https://sign.zoho.com"
     setting :base_path, default: "/api/v1"
   end
