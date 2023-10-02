@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "addressable"
   spec.add_dependency "dry-configurable", "~> 0.13"
   spec.add_dependency "faraday"
-  spec.add_dependency "faraday_middleware"
+  spec.add_dependency "faraday-retry"
   spec.add_dependency "rainbow"
 
   # For more information and examples about making a new gem, checkout our

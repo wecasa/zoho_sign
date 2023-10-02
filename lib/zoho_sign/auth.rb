@@ -2,7 +2,7 @@
 
 require "json"
 require "faraday"
-require "faraday_middleware"
+require "faraday/retry"
 require "addressable"
 
 module ZohoSign
