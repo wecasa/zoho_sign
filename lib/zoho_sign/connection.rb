@@ -2,7 +2,7 @@
 
 require "rainbow"
 require "faraday"
-require "faraday_middleware"
+require "faraday/retry"
 
 require_relative "response_handler"
 
