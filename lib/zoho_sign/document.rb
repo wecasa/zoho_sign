@@ -37,7 +37,7 @@ module ZohoSign
           data: {
             requests: {
               request_name: document_name,
-              actions:,
+              actions:
             }.merge(additional_data)
           }
         }
