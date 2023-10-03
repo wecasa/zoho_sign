@@ -98,11 +98,8 @@ RSpec.describe ZohoSign::Document do
       stub_request(:post, "https://sign.zoho.com/api/v1/requests/48425000000037091/actions/48425000000037116/embedtoken?host=https://example.com").
         with(
           headers: {
-            'Accept'=>'*/*',
-            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-            'Authorization'=>'Zoho-oauthtoken 0000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-            'Content-Type'=>'application/x-www-form-urlencoded',
-            'User-Agent'=>'Faraday v1.10.3'
+            "Authorization" => /Zoho-oauthtoken .*/,
+            "Content-Type" => "application/x-www-form-urlencoded"
           }).
         to_return(status: 200, body: {sign_url: sign_url}.to_json, headers: {})
     }
