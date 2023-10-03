@@ -27,6 +27,7 @@ RSpec.describe ZohoSign do
       expect(described_class.config.values[:oauth][:refresh_token]).to eq("3000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
       expect(described_class.config.values[:oauth][:redirect_uri]).to eq("http://example.com")
       expect(described_class.config.values[:connection]).to eq(nil)
+      expect(described_class.config.values[:api][:auth_domain]).to eq("https://accounts.zoho.com")
       expect(described_class.config.values[:api][:domain]).to eq("https://sign.zoho.com")
       expect(described_class.config.values[:api][:base_path]).to eq("/api/v1")
     end

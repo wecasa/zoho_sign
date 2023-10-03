@@ -11,8 +11,6 @@ module ZohoSign
   class Auth
     extend Forwardable
 
-    AUTH_DOMAIN_PATH = "https://accounts.zoho.com"
-
     TOKEN_PATH = "/oauth/v2/token"
 
     DEFAULT_SCOPES = %w[
@@ -27,6 +25,7 @@ module ZohoSign
       @configuration = ZohoSign.config
       @access_type = access_type
       @scopes = scopes
+      @auth_domain_path = ZohoSign.config.api.auth_domain
     end
 
     def self.refresh_token(refresh_token)
@@ -57,7 +56,7 @@ module ZohoSign
     end
 
     def token_full_uri
-      Addressable::URI.join(AUTH_DOMAIN_PATH, TOKEN_PATH)
+      Addressable::URI.join(@auth_domain_path, TOKEN_PATH)
     end
 
     def self.get_token(grant_token)

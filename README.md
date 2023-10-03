@@ -48,7 +48,15 @@ ZohoSign.config.update(
 params = ZohoSign::Auth.refresh_token(ENV["ZOHO_SIGN_REFRESH_TOKEN"])
 ZohoSign.config.connection = params
 ```
-
+### Configure regional domain (if applicable)
+```ruby
+ZohoSign.config.update(
+  api: {
+    auth_domain: "https://accounts.zoho.eu",
+    domain: "https://sign.zoho.eu"
+  }
+)
+```
 ### How to use `ZohoSign::Template`
 
 Find all templetes:
