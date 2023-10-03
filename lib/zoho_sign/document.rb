@@ -28,7 +28,7 @@ module ZohoSign
             private_notes: action_data[:private_notes],
             verification_type: action_data.fetch(:verification_type, "EMAIL"),
             action_type: action_data.fetch(:action_type, "SIGN"),
-            is_embedded: action_data.fetch(:is_embedded, false ),
+            is_embedded: action_data.fetch(:is_embedded, false)
           }.compact
         end
 
@@ -42,7 +42,7 @@ module ZohoSign
           }
         }
 
-        body = connection.upload("#{request_path}", params)
+        body = connection.upload(request_path, params)
         response = build_response(body)
         document_attributes = response.data(:requests)
         ZohoSign::Document.new(**document_attributes)
@@ -50,7 +50,7 @@ module ZohoSign
 
       def get_embedded_url(request_id, action_id, host)
         body = connection.post("#{request_path}/#{request_id}/actions/#{action_id}/embedtoken?host=#{host}")
-        JSON.parse(body)["sign_url"]
+        JSON.parse(body, symbolize_names: true)[:sign_url]
       end
 
       private

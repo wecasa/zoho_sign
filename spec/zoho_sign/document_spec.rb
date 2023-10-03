@@ -60,7 +60,7 @@ RSpec.describe ZohoSign::Document do
       body = JSON.parse(File.read("spec/webmocks/documents/create_document_success_response.json"), symbolize_names: true)
 
       stub_request(:post, "https://sign.zoho.com/api/v1/requests")
-        .with{ |request|
+        .with { |request|
           body_keys = URI.decode_www_form(request.body).to_h.keys
           expected_keys = %w[data[requests][actions][] data[requests][request_name] file]
           body_keys == expected_keys
@@ -75,7 +75,7 @@ RSpec.describe ZohoSign::Document do
         )
     end
 
-    it 'should send for signature' do
+    it "should send for signature" do
       document = Faraday::UploadIO.new("spec/webmocks/document.pdf", "application/pdf")
       recipient_data = []
       additional_data = {}
@@ -95,16 +95,17 @@ RSpec.describe ZohoSign::Document do
   describe "#get_embedded_url" do
     let(:sign_url) { Faker::Internet.url }
     let!(:patch_request_stub) {
-      stub_request(:post, "https://sign.zoho.com/api/v1/requests/48425000000037091/actions/48425000000037116/embedtoken?host=https://example.com").
-        with(
+      stub_request(:post, "https://sign.zoho.com/api/v1/requests/48425000000037091/actions/48425000000037116/embedtoken?host=https://example.com")
+        .with(
           headers: {
             "Authorization" => /Zoho-oauthtoken .*/,
             "Content-Type" => "application/x-www-form-urlencoded"
-          }).
-        to_return(status: 200, body: {sign_url: sign_url}.to_json, headers: {})
+          }
+        )
+        .to_return(status: 200, body: {sign_url: sign_url}.to_json, headers: {})
     }
 
-    it 'should get embedded url for signing' do
+    it "should get embedded url for signing" do
       data = JSON.parse(File.read("spec/webmocks/documents/create_document_success_response.json"), symbolize_names: true)
       document = ZohoSign::Document.new(**data[:requests])
       for_recipient = 0
@@ -112,5 +113,4 @@ RSpec.describe ZohoSign::Document do
       expect(document.get_embedded_url(for_recipient, host)).to eq(sign_url)
     end
   end
-
 end
