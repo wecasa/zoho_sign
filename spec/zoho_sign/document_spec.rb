@@ -76,7 +76,7 @@ RSpec.describe ZohoSign::Document do
     end
 
     it 'should send for signature' do
-      document = Faraday::UploadIO.new("spec/webmocks/document.pdf", "application/pdf")
+      document = Faraday::Multipart::FilePart.new("spec/webmocks/document.pdf", "application/pdf")
       recipient_data = []
       additional_data = {}
 
