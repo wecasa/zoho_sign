@@ -3,6 +3,7 @@
 require "rainbow"
 require "faraday"
 require "faraday/retry"
+require "faraday/multipart"
 
 require_relative "response_handler"
 
