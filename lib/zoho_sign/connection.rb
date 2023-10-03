@@ -26,10 +26,17 @@ module ZohoSign
       response.body
     end
 
-    def post(path, params = {})
+    def post(path, params = {}.to_query)
       log "POST #{path} with #{params}"
 
       response = with_refresh { adapter.post(path, params) }
+      response.body
+    end
+
+    def upload(path, params = {})
+      log "Uploading to #{path} with #{params}"
+
+      response = with_refresh { file_upload_adapter.post(path, params) }
       response.body
     end
 
@@ -101,6 +108,18 @@ module ZohoSign
         conn.headers["Content-Type"] = "application/x-www-form-urlencoded"
         conn.request :json
         conn.request :retry
+        conn.response :json, parser_options: {symbolize_names: true}, content_type: /\bjson$/
+        conn.response :logger if ZohoSign.config.debug
+        conn.adapter Faraday.default_adapter
+      end
+    end
+
+    def file_upload_adapter
+      Faraday.new(url: base_url) do |conn|
+        conn.headers["Authorization"] = authorization_token if access_token?
+        conn.headers["Content-Type"] = "application/x-www-form-urlencoded"
+        conn.request :multipart
+        conn.request :url_encoded
         conn.response :json, parser_options: {symbolize_names: true}, content_type: /\bjson$/
         conn.response :logger if ZohoSign.config.debug
         conn.adapter Faraday.default_adapter
