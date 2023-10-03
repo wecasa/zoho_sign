@@ -82,9 +82,9 @@ RSpec.describe ZohoSign::Document do
 
       object = described_class.send_for_signature(
         document_name: "test",
-        document:,
-        recipient_data:,
-        additional_data:
+        document: document,
+        recipient_data: recipient_data,
+        additional_data: additional_data
       )
 
       expect(object).to be_kind_of(ZohoSign::Document)
@@ -104,7 +104,7 @@ RSpec.describe ZohoSign::Document do
             'Content-Type'=>'application/x-www-form-urlencoded',
             'User-Agent'=>'Faraday v1.10.3'
           }).
-        to_return(status: 200, body: {sign_url: }.to_json, headers: {})
+        to_return(status: 200, body: {sign_url: sign_url}.to_json, headers: {})
     }
 
     it 'should get embedded url for signing' do
