@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.2.1] - 2023-10-03
+
+- Adding support for Zoho regional domains (#53)
+
 ## [0.2.0] - 2023-10-02
 
 - Upgrade Faraday gem from v1 to v2 (#52)
