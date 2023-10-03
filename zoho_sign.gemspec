@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.metadata["bug_tracker_uri"] = "https://github.com/wecasa/zoho_sign/issues"
   spec.metadata["bug_tracker_uri"] = "https://github.com/wecasa/zoho_sign/issues"
   spec.metadata["rubygems_mfa_required"] = "true"
+  spec.metadata["github_url"] = "https://github.com/wecasa/zoho_sign"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
