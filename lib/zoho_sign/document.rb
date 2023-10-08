@@ -48,11 +48,6 @@ module ZohoSign
         ZohoSign::Document.new(**document_attributes)
       end
 
-      def get_embedded_url(request_id, action_id, host)
-        body = connection.post("#{request_path}/#{request_id}/actions/#{action_id}/embedtoken?host=#{host}")
-        JSON.parse(body, symbolize_names: true)[:sign_url]
-      end
-
       private
 
       def request_path
