@@ -102,7 +102,7 @@ RSpec.describe ZohoSign::Document do
             "Content-Type" => "application/x-www-form-urlencoded"
           }
         )
-        .to_return(status: 200, body: {sign_url: sign_url}.to_json, headers: {})
+        .to_return(status: 200, body: {sign_url: sign_url}.to_json, headers: {"Content-Type" => "application/json"})
     }
 
     it "should get embedded url for signing" do
