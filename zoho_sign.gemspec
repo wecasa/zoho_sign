@@ -41,6 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "faraday"
   spec.add_dependency "faraday-retry"
   spec.add_dependency "rainbow"
+  spec.add_dependency "faraday-multipart"
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html

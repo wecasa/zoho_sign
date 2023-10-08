@@ -54,4 +54,63 @@ RSpec.describe ZohoSign::Document do
       expect(download_pdf_from_template_stub).to have_been_requested
     end
   end
+
+  describe ".send_for_signature" do
+    let!(:create_document_stub) do
+      body = JSON.parse(File.read("spec/webmocks/documents/create_document_success_response.json"), symbolize_names: true)
+
+      stub_request(:post, "https://sign.zoho.com/api/v1/requests")
+        .with { |request|
+          body_keys = URI.decode_www_form(request.body).to_h.keys
+          expected_keys = %w[data[requests][actions][] data[requests][request_name] file]
+          body_keys == expected_keys
+        }
+        .to_return(
+          status: 200,
+          body: body.to_json,
+          headers: {
+            "Content-Type" => "application/json",
+            "charset" => "UTF-8"
+          }
+        )
+    end
+
+    it "should send for signature" do
+      document = Faraday::UploadIO.new("spec/webmocks/document.pdf", "application/pdf")
+      recipient_data = []
+      additional_data = {}
+
+      object = described_class.send_for_signature(
+        document_name: "test",
+        document: document,
+        recipient_data: recipient_data,
+        additional_data: additional_data
+      )
+
+      expect(object).to be_kind_of(ZohoSign::Document)
+      expect(create_document_stub).to have_been_requested
+    end
+  end
+
+  describe "#get_embedded_url" do
+    let(:sign_url) { Faker::Internet.url }
+    let!(:patch_request_stub) {
+      stub_request(:post, "https://sign.zoho.com/api/v1/requests/48425000000037091/actions/48425000000037116/embedtoken?host=https://example.com")
+        .with(
+          headers: {
+            "Authorization" => /Zoho-oauthtoken .*/,
+            "Content-Type" => "application/x-www-form-urlencoded"
+          }
+        )
+        .to_return(status: 200, body: {sign_url: sign_url}.to_json, headers: {"Content-Type" => "application/json"})
+    }
+
+    it "should get embedded url for signing" do
+      data = JSON.parse(File.read("spec/webmocks/documents/create_document_success_response.json"), symbolize_names: true)
+      document = ZohoSign::Document.new(**data[:requests])
+      for_recipient = 0
+      host = "https://example.com"
+      expect(document.get_embedded_url(for_recipient, host)).to eq(sign_url)
+    end
+  end
 end

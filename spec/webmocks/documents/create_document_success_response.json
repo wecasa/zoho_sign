@@ -1,0 +1,173 @@
+{
+  "code": 0,
+  "requests": {
+    "request_status": "draft",
+    "notes": "",
+    "reminder_period": 5,
+    "owner_id": "owner_id",
+    "description": "",
+    "request_name": "annotations",
+    "modified_time": 1696334304612,
+    "is_deleted": false,
+    "expiration_days": 10,
+    "is_sequential": true,
+    "templates_used": [],
+    "owner_first_name": "John",
+    "sign_percentage": 0,
+    "owner_email": "test@example.com",
+    "created_time": 1696334304612,
+    "email_reminders": true,
+    "document_ids": [
+      {
+        "image_string": "image_string",
+        "document_name": "test",
+        "pages": [
+          {
+            "image_string": "image_string",
+            "page": 0,
+            "is_thumbnail": true
+          }
+        ],
+        "document_size": 12977,
+        "document_order": "0",
+        "is_editable": false,
+        "total_pages": 1,
+        "document_id": "48425000000037092"
+      }
+    ],
+    "self_sign": false,
+    "document_fields": [
+      {
+        "document_id": "48425000000037092",
+        "fields": []
+      }
+    ],
+    "in_process": false,
+    "validity": -1,
+    "request_type_name": "Others",
+    "request_id": "48425000000037091",
+    "request_type_id": "48425000000000127",
+    "owner_last_name": "Doe",
+    "actions": [
+      {
+        "verify_recipient": true,
+        "recipient_countrycode_iso": "",
+        "action_type": "SIGN",
+        "private_notes": "To be signed",
+        "cloud_provider_name": "Zoho Sign",
+        "recipient_email": "test@example.com",
+        "send_completed_document": true,
+        "verification_type": "EMAIL",
+        "allow_signing": false,
+        "recipient_phonenumber": "",
+        "is_bulk": false,
+        "action_id": "48425000000037116",
+        "cloud_provider_id": 10,
+        "signing_order": 0,
+        "fields": [
+          {
+            "field_id": "48425000000037118",
+            "x_coord": 72,
+            "field_type_id": "48425000000000145",
+            "abs_height": 17,
+            "text_property": {
+              "is_italic": false,
+              "max_field_length": 2048,
+              "is_underline": false,
+              "font_color": "000000",
+              "is_fixed_width": false,
+              "font_size": 10,
+              "is_fixed_height": true,
+              "is_read_only": false,
+              "is_bold": false,
+              "font": "Arial"
+            },
+            "field_category": "textfield",
+            "field_label": "Full name",
+            "name_format": "FULL_NAME",
+            "is_mandatory": true,
+            "default_value": "",
+            "page_no": 0,
+            "document_id": "48425000000037092",
+            "field_name": "Full name",
+            "y_value": 23.942966,
+            "abs_width": 60,
+            "action_id": "48425000000037116",
+            "width": 10.078352,
+            "y_coord": 202,
+            "field_type_name": "Name",
+            "description_tooltip": "",
+            "x_value": 12.097398,
+            "height": 2.017998
+          },
+          {
+            "field_id": "48425000000037119",
+            "x_coord": 72,
+            "field_type_id": "48425000000000143",
+            "abs_height": 17,
+            "text_property": {
+              "is_italic": false,
+              "max_field_length": 2048,
+              "is_underline": false,
+              "font_color": "000000",
+              "is_fixed_width": false,
+              "font_size": 10,
+              "is_fixed_height": true,
+              "is_read_only": false,
+              "is_bold": false,
+              "font": "Arial"
+            },
+            "field_category": "datefield",
+            "field_label": "Sign date",
+            "is_mandatory": true,
+            "time_zone_offset": 60,
+            "page_no": 0,
+            "document_id": "48425000000037092",
+            "time_zone": "Europe/Dublin",
+            "field_name": "Sign date",
+            "y_value": 27.325245,
+            "abs_width": 57,
+            "action_id": "48425000000037116",
+            "width": 9.590287,
+            "field_value": "03 Oct 2023",
+            "y_coord": 230,
+            "date_format": "dd MMM yyyy",
+            "field_type_name": "Date",
+            "description_tooltip": "",
+            "x_value": 12.097398,
+            "height": 2.017998
+          },
+          {
+            "field_id": "48425000000037120",
+            "x_coord": 72,
+            "field_type_id": "48425000000000133",
+            "abs_height": 17,
+            "field_category": "image",
+            "field_label": "Signature",
+            "is_mandatory": true,
+            "page_no": 0,
+            "document_id": "48425000000037092",
+            "is_draggable": false,
+            "field_name": "Signature",
+            "y_value": 25.634108,
+            "abs_width": 67,
+            "action_id": "48425000000037116",
+            "width": 11.29065,
+            "y_coord": 216,
+            "field_type_name": "Signature",
+            "description_tooltip": "",
+            "x_value": 12.097398,
+            "is_resizable": true,
+            "height": 2.017998
+          }
+        ],
+        "recipient_name": "John",
+        "delivery_mode": "EMAIL",
+        "action_status": "NOACTION",
+        "recipient_countrycode": ""
+      }
+    ]
+  },
+  "message": "Document has been added",
+  "status": "success"
+}

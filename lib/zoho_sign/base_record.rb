@@ -50,6 +50,16 @@ module ZohoSign
         new(**record_attributes)
       end
 
+      # Fetch embedded URL for a request and action
+      # @param [String] request_id
+      # @param [String] action_id
+      # @param [String] host
+      # @return [String] URL to embed within in an iframe or show in a browser
+      def get_embedded_url(request_id, action_id, host)
+        body = connection.post("#{request_path}/#{request_id}/actions/#{action_id}/embedtoken?host=#{host}")
+        body[:sign_url]
+      end
+
       private
 
       def connection

@@ -48,7 +48,8 @@ module ZohoSign
             private_notes: action_data[:private_notes],
             verification_type: action_data.fetch(:verification_type, "EMAIL"),
             action_type: action_data.fetch(:action_type, "SIGN"),
-            action_id: action_data.fetch(:action_id)
+            action_id: action_data.fetch(:action_id),
+            is_embedded: action_data.fetch(:is_embedded, false)
           }.compact
         end
 
