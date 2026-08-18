@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.2.2] - 2026-08-18
+
+- Relax dry-configurable dependency to >= 0.13, < 2 (#55)
+
 ## [0.2.1] - 2023-10-03
 
 - Adding support for Zoho regional domains (#53)
